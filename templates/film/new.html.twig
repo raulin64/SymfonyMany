@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+ 
+{% block title %}New Film{% endblock %}
+ 
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Create Film</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-info float-right" href="{{ path('app_film_index') }}"> 
+                    View All Films
+                </a>
+            </div>
+            <div class="card-body">
+                 {{ include('film/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

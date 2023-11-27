@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+{% block title %}Film index{% endblock %}
+{% block body %}
+
+
+
+<div class="container">
+   <h2 class="text-center mt-5 mb-3">Symfony Film Manager</h2>
+   <div class="card">
+      <div class="card-header">
+         <a class="btn btn-outline-primary" href="{{ path('app_film_new') }}"> 
+         Create New Film 
+         </a>
+      </div>
+	  <! –
+	  	<form role="search" method="post" action="{{ path('app_film_search') }}">
+			<div>
+				<input type="text" placeholder="Buscar" name ="search">
+				<span>
+					<button class="btn btn-outline-info" type="submit">Buscar</button>
+				</span>
+			</div>
+		</form>	
+	–>	
+      <div class="card-body">
+         <table class="table table-bordered">
+            <thead>
+               <tr>
+                <th>Id</th>
+                <th>Imdb TitleI d</th>
+                <th>Title</th>
+                <th>Date Published</th>
+                <th>Genre</th>
+                <th>Duration</th>
+                <th>Production Company</th>
+			
+                <th rowspan="2">actions</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for film in films %}
+               <tr>
+               <td>{{ film.id }}</td>
+
+
+                <td>{{ film.imdbTitleId }}</td>
+				
+				 {%- set url = ea_url()
+					.setController('App\\Controller\\Admin\\FilmsCrudController')
+					.setAction('detail')
+					.setEntityId(film.id)
+				-%}
+				<td>
+				<a href="{{ url }}">
+					{{ film.title }}{% if not loop.last %}, {% endif %}
+				</a>
+
+				</td>
+              
+				<td>{{ film.datePublished ? film.datePublished|date('d-m-Y') : '' }}</td>
+                <td>{{ film.genre }}</td>
+                <td>{{ film.duration }}</td>
+                <td>{{ film.productionCompany }}</td>
+				<tr>
+				<th>Actores-></th>
+				<td>	   
+				{% for actor in film.actors %}
+					 {%- set url = ea_url()
+					.setController('App\\Controller\\Admin\\ActorsCrudController')
+					.setAction('detail')
+					.setEntityId(actor.id)
+				-%}
+				<a href="{{ url }}">
+				{{ actor.name }}
+				</a>
+				{% endfor %}
+				</td>
+				<td>	
+				<th>Director-></th>		
+				<td>
+				{% for director in film.director %}
+					 {%- set url = ea_url()
+					.setController('App\\Controller\\Admin\\DirectorsCrudController')
+					.setAction('detail')
+					.setEntityId(director.id)
+				-%}
+				<a href="{{ url }}">
+				{{ director.name }}
+				</a>
+				{% endfor %}
+				</td>				
+				<td>
+				</td>
+				<td>
+				</td>				
+                  <td>
+                     <form method="post" action="{{ path('app_film_delete', {'id': film.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <a
+                           class="btn btn-outline-info"href="{{ path('app_film_show', {'id': film.id}) }}">show</a>
+                        <a
+                           class="btn btn-outline-success"href="{{ path('app_film_edit', {'id': film.id}) }}">edit</a>
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ film.id) }}">
+                        <button class="btn btn-outline-danger">Delete</button>
+                     </form>
+                  </td>
+               </tr>
+               {% else %}
+               <tr>
+                  <td colspan="11">no records found</td>
+               </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
+   </div>
+   	 <ul class="pagination">
+          <li class="page-item"><a  class="page-link" href="#">&laquo;</a></li>
+            {% for i in 1..maxPages %}
+                <li class="page-item" ><a class="page-link"  href="{{ path('app_film_index', {'thisPage': i}) }}">{{ i }}</a></li>
+            {% endfor %}
+          <li class="page-item"><a class="page-link"  href="#">&raquo;</a></li>
+        </ul>
+</div>
+{% endblock %}

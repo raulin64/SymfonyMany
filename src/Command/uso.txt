@@ -1,0 +1,37 @@
+php bin/console app:import-developpers
+pero es más rápido, usar el .bat de mysql
+
+## Import command
+`symfony console app:import-films -h`
+
+```Descripción:
+Importar películas desde csv a la base de datos de entidades IMDB
+
+Usage:
+app:import-films [options] [--] <file>
+
+Arguments:
+file                  Path to the .csv file to import
+
+Options:
+-u, --update          Update films data and relations. By default the command will import the whole dataset, truncating previously stored data.
+-t, --test            For testing purposes, limit dataset to 1000 rows.
+-h, --help            Display help for the given command. When no command is given display help for the list command
+-q, --quiet           Do not output any message
+-V, --version         Display this application version
+--ansi|--no-ansi  Force (or disable --no-ansi) ANSI output
+-n, --no-interaction  Do not ask any interactive question
+-e, --env=ENV         The Environment name. [default: "dev"]
+--no-debug        Switch off debug mode.
+-v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+```
+
+### Ejemplos:
+
+#### Truncar películas y relaciones e importar el archivo .csv completo:
+
+`symfony console app:import-films IMDbMovies.csv`
+
+
+#### #### Actualizar películas y relaciones :
+`symfony console app:import-films IMDbMovies.csv -u -t`
