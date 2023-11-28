@@ -1,10 +1,8 @@
-ABM con PHP Symfony
-Este ejemplo fue creado para un examén tecnico
+ABM con PHP Symfony con relaciones sql manytomany
+Este ejemplo fue creado para un examén técnico
 raulcasanova@yahoo.com
 
 #### Clona el proyecto e instala las dependencias:
-
-
 
 ```
 git clone https://github.com/raulin64/easyadmimanytomany.git
